@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import Loader from "./Component/loader";
+import Navigation from "./Component/Navigation";
 
 const Movies = () => {
   const [movie, setMovies] = useState([]);
@@ -118,6 +119,7 @@ const Movies = () => {
       </View>
 
       )}
+      <Navigation/>
     </View>
   );
 };

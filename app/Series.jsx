@@ -7,6 +7,7 @@ import {
   FlatList,
   Dimensions,
 } from "react-native";
+import Navigation from "./Component/Navigation";
 // import { HoverEffect } from "react-native-gesture-handler";
 
 const Series = () => {
@@ -108,6 +109,7 @@ const Series = () => {
         </View>
    
       )}
+      <Navigation/>
     </View>
   );
 };
