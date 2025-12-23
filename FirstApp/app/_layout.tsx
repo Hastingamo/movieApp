@@ -1,5 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
+import { Stack, useNavigation } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
@@ -11,15 +11,17 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
- 
+
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack >
-        <Stack.Screen name='Home'  options={{headerShown: true}}/>
+      <Stack>
+        <Stack.Screen name="index" options={{  headerShown: true }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-        <Stack.Screen name='Movies' options={{headerShown: true}}/>
-        <Stack.Screen name='App' options={{headerShown:true}}/>
+          <Stack.Screen name='Movies' options={{headerShown: true}}/>
         <Stack.Screen name='Series' options={{headerShown: true}}/>
+        <Stack.Screen name='NotFound' options={{headerShown: true, title: 'Oops!'}}/>
+        <Stack.Screen name='MoviesDetails' options={{headerShown: true}}/>
+
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

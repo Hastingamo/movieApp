@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Navigation from './Component/Navigation'
-const index = () => {
+
+
+const App = () => {
   return (
     <View>
-      <Text>index</Text>
-      <Navigation/>
+      <Text>App</Text>
     </View>
   )
 }
 
-export default index
+export default App
 
 const styles = StyleSheet.create({})
