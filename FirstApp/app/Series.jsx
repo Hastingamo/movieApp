@@ -6,10 +6,12 @@ import {
   View,
   FlatList,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 // import { HoverEffect } from "react-native-gesture-handler";
-
+import { useNavigation } from "expo-router";
 const Series = () => {
+  const navigates = useNavigation();
   const [series, setSeries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -44,7 +46,8 @@ const Series = () => {
   };
 
   const screenWidth = Dimensions.get("window").width;
-  const numColumns = screenWidth > 768 ? 8 : screenWidth > 600 ? 6 : screenWidth > 420 ? 4 : 3;
+  const numColumns =
+    screenWidth > 768 ? 8 : screenWidth > 600 ? 6 : screenWidth > 420 ? 4 : 3;
   useEffect(() => {
     getSeries();
   }, []);
@@ -56,59 +59,66 @@ const Series = () => {
       ) : (
         <View>
           <View>
-            <Text style={{fontSize:24,fontWeight:"bold",marginBottom:10}}>TV Series</Text>
+            <Text
+              style={{ fontSize: 24, fontWeight: "bold", marginBottom: 10 }}
+            >
+              TV Series
+            </Text>
           </View>
-      
-               <FlatList
-          data={series}
-          contentContainerStyle={styles.listContainer}
-          ListEmptyComponent={<Text>no series found</Text>}
-          numColumns={numColumns}
-          keyExtractor={(item) => item.id.toString()}
-          onEndReached={loadMore}
-          onEndReachedThreshold={0.1}
-          renderItem={({ item }) => (
-            <View style={styles.imageContainer}>
-              <Image
-                source={{
-                  uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
-                }}
-                style={styles.Image}
-              ></Image>
-              <Text
-                numberOfLines={1}
-                ellipsizeMode="tail"
-                style={styles.titleText}
+
+          <FlatList
+            data={series}
+            contentContainerStyle={styles.listContainer}
+            ListEmptyComponent={<Text>no series found</Text>}
+            numColumns={numColumns}
+            keyExtractor={(item) => item.id.toString()}
+            onEndReached={loadMore}
+            onEndReachedThreshold={0.1}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.imageContainer}
+                onPress={() =>
+                  navigates.navigate("SeriesDetail", { id: item.id })
+                }
               >
-                {item.name}
-              </Text>
-                       <View
-                style={{
-                  flexDirection: "row",
-                  gap: 5,
-                  fontSize: 10,
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ fontSize: 10}}>
-                  {" "}
-                  {item.first_air_date
-                    ? new Date(item.first_air_date).getFullYear()
-                    : "N/A"}
+                <Image
+                  source={{
+                    uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+                  }}
+                  style={styles.Image}
+                ></Image>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={styles.titleText}
+                >
+                  {item.name}
                 </Text>
-                {item?.vote_average > 0 && (
-                  <span className="text-xs text-yellow-600 flex items-center mt-1">
-                    ⭐ {item?.vote_average?.toFixed(1)}
-                  </span>
-                )}
-              </View>
-            </View>
-          )}
-        />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    gap: 5,
+                    fontSize: 10,
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 10 }}>
+                    {" "}
+                    {item.first_air_date
+                      ? new Date(item.first_air_date).getFullYear()
+                      : "N/A"}
+                  </Text>
+                  {item?.vote_average > 0 && (
+                    <span className="text-xs text-yellow-600 flex items-center mt-1">
+                      ⭐ {item?.vote_average?.toFixed(1)}
+                    </span>
+                  )}
+                </View>
+              </TouchableOpacity>
+            )}
+          />
         </View>
-   
       )}
-        
     </View>
   );
 };
@@ -135,7 +145,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
-  
+
   //   ImageContainer:HoverEffect  {
   //   scale: 1.1,
   //   transition: "transform 0.3s",

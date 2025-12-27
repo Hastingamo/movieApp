@@ -17,11 +17,15 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="index" options={{  headerShown: true }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-          <Stack.Screen name='Movies' options={{headerShown: true}}/>
+        <Stack.Screen name='Movies' options={{headerShown: true}}/>
         <Stack.Screen name='Series' options={{headerShown: true}}/>
         <Stack.Screen name='NotFound' options={{headerShown: true, title: 'Oops!'}}/>
         <Stack.Screen name='MoviesDetails' options={{headerShown: true}}/>
-
+        <Stack.Screen name='SeriesDetail' options={{headerShown: true}}/>
+        <Stack.Screen name='Login' options={{headerShown: true}}/>
+        <Stack.Screen name='SignUp' options={{headerShown: true}}/>
+        <Stack.Screen name='Authentication' options={{headerShown: true}}/>
+        <Stack.Screen name='Profile' options={{headerShown: true}}/>
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
